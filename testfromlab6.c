@@ -1,4 +1,4 @@
-nclude <avr/io.h>
+#include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/eeprom.h>
 #include <stdio.h>
@@ -39,7 +39,8 @@ int main()
 	while(1) //raspberry pi controls reset line
 	{
 		estimate = read_adc();
-		dtostrf(estimate, 4, 4, num_buff);
+		dtostrf(estimate, 4, 4, num_buf);
+		printf("The power rail is approximately %s\n",num_buf);
 	}
 }
 
@@ -108,7 +109,7 @@ void init_adc(void)
 }
 
 //Read ADC pin and returning the value
-//unsigned int read_adc(void)
+unsigned int read_adc(void)
 {
 	ADCSRA |= (1<<ADSC);
         while(ADCSRA & (1<<ADSC)); //wait for coversion
