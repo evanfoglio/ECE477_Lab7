@@ -25,7 +25,7 @@ int main()
   init_serial(); 
   init_adc();  
   _delay_ms(1000); //let serial work itself out
-  while(strncmp("Start",buffer,strlen("Start"))!=0) fgets(buffer,100,stdin);
+//  while(strncmp("Start",buffer,strlen("Start"))!=0) fgets(buffer,100,stdin);
   while(1) //raspberry pi controls reset line
   {
     printf("%d\n",read_adc());
