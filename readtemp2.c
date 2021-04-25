@@ -115,7 +115,7 @@ void init_adc(void)
 unsigned int read_adc(void)
 {
 	ADCSRA |= (1<<ADSC);
-        while(ADCSRA & (1<<ADSC)) != 0; //wait for coversion
+        while(ADCSRA & (1<<ADSC) !=0); //wait for coversion
         return ADC;
 }
 
