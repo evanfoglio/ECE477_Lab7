@@ -38,7 +38,7 @@ int main()
 
 	while(1) //raspberry pi controls reset line
 	{
-		estimate = (ADCH << 8) | ADCL; //read_adc();
+		estimate = read_adc();
 		dtostrf(estimate, 5, 0, num_buf);
 		printf("%s\n", num_buf);
 	}
@@ -113,6 +113,6 @@ unsigned int read_adc(void)
 {
 	ADCSRA |= (1<<ADSC);
         while(ADCSRA & (1<<ADSC)); //wait for coversion
-        return ADC;
+        return (ADCH << 8) | ADCL; //ADC;
 }
 
