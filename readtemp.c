@@ -38,7 +38,7 @@ int main()
 
 	while(1) //raspberry pi controls reset line
 	{
-		estimate = read_adc();
+		estimate = (ADCH << 8) | ADCL; //read_adc();
 		dtostrf(estimate, 5, 0, num_buf);
 		printf("%s\n", num_buf);
 	}
