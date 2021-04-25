@@ -31,22 +31,7 @@ int main()
 
 	//Read 42 characters from the serial
 	while(fgets(buffer, 42, serial_in)){
-		printf("%s", buffer);
-		
-		
-		fd2 = fopen("rail_voltages.dat","a");
-
-
-		if(fd2==NULL){
-        	        printf("Error opening output file\n");
-        	        return -1;
-        	}
-
-		fprintf(fd2, "%s", buffer);
-
-		fclose(fd2);
-
-
+		printf("%s", buffer);	
 	}
 	close(fd);
 }
