@@ -43,7 +43,7 @@ int main()
 	while(fgets(buffer, 42, serial_in)){
 		
 		//print recieved data
-		printf("%s", buffer);
+		printf("value is %s \n", buffer);
 
 		//Reset if it hits 32, start averaging	
 		if(i == 32){
