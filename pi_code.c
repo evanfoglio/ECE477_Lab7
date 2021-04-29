@@ -4,6 +4,8 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
 int init(void);
 int main()
 {
@@ -13,14 +15,21 @@ int main()
 	FILE *fd2 = NULL;
 	FILE *serial_in;
 	int fdserial = init();	
+	int average[32];
+	bool average_recording = false;
+	int sum;
+	int i, j;
+	
 	//open serial port
 	fd = serialOpen("/dev/serial0", 9600);	
+	
 	//serial port error checking
 	if(fd < 0){
 		printf("Could not open serial port 0\n");
 		return -1;
 	}
 
+	//Open the file using the standard library
 	serial_in = fdopen(fdserial, "r");
 	
 	usleep(2000000);// let serial sort itself out
@@ -29,10 +38,33 @@ int main()
 	serialFlush(fd);
 	
 
+
 	//Read 42 characters from the serial
 	while(fgets(buffer, 42, serial_in)){
-		printf("%s", buffer);	
+		
+		//print recieved data
+		printf("%s", buffer);
+
+		//Reset if it hits 32, start averaging	
+		if(i == 32){
+			i = 0;
+			average_recording = true;
+		}
+		
+		//Set average to buffer value
+		average[i] = atoi(buffer);
+		
+		//If there are enough values to take the average, take the average and print the values
+		if(average_recording){
+			sum = 0;
+			for(j = 0; j<32; j++){
+				sum += average[j];
+			}
+			printf("average is %d\n sum is %d\n", sum/32, sum);
+		}
+
 	}
+	//Close the file descriptor
 	close(fd);
 }
 
